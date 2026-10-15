@@ -10,7 +10,7 @@ make ARCH=riscv64-jeucore CROSS_COMPILE=riscv64-unknown-elf- \
   JEUCORE_SIM=/path/to/Jeucore/build/VSoC check
 ```
 
-The application checks UART input and completion handling. Input `Z` prints `OK` and
-returns through the simulator pass address; other input prints `FAIL` and returns
-through the fail address. Override `JEUCORE_SIM_ARGS` to change the input or
-simulator options.
+The application exercises klib formatting, strings and allocation along with UART
+input and completion handling. Input `Z` prints `wave 42` and `OK`, then returns
+through the simulator pass address; other input prints `FAIL` and returns through
+the fail address. Override `JEUCORE_SIM_ARGS` to change the input or simulator options.

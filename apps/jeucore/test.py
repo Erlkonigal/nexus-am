@@ -53,7 +53,7 @@ def main():
         parser.add_argument("--" + name, type=lambda value: int(value, 0), required=True)
     args = parser.parse_args()
     check_elf(args)
-    check_run(args, "Z", True, "OK\n")
+    check_run(args, "Z", True, "wave 42\nOK\n")
     check_run(args, "X", False, "FAIL\n")
     print("Jeucore AM checks passed")
 
