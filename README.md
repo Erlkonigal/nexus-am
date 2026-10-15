@@ -1,5 +1,23 @@
 # The Abstract Machine (AM)
 
+## Jeucore 仿真平台
+
+`ARCH=riscv64-jeucore` 使用 RV64I、LP64 ABI 和 Jeucore 的 RAM/UART 地址，生成可由
+Jeucore Verilator 模拟器通过 `+elf=PATH` 加载的 ELF。该平台使用 `klib`，无需 newlib。
+
+```sh
+export AM_HOME="$PWD"
+make -C apps/jeucore ARCH=riscv64-jeucore CROSS_COMPILE=riscv64-unknown-elf-
+make -C apps/jeucore ARCH=riscv64-jeucore CROSS_COMPILE=riscv64-unknown-elf- \
+  JEUCORE_SIM=/path/to/Jeucore/build/VSoC run
+```
+
+`run` 将 ELF 交给模拟器；`JEUCORE_SIM_ARGS` 可传递额外 plusargs。平台地址和 UART
+参数可通过 `JEUCORE_RAM_BASE`、`JEUCORE_RAM_SIZE`、`JEUCORE_UART_BASE`、
+`JEUCORE_UART_CLOCK_HZ`、`JEUCORE_UART_BAUD`、`JEUCORE_SIM_PASS_ADDR` 和
+`JEUCORE_SIM_FAIL_ADDR` 覆盖。修改这些参数时，请使用 `make -B` 重编译，并让
+Jeucore Kconfig 使用相同值。当前 RTL 只验证了默认 pass/fail 地址的运行行为。
+
 抽象计算机：必要的抽象，帮你编写一个完整的计算机系统！
 
 目录组织：

@@ -1,41 +1,50 @@
 #include "klib.h"
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
-
-size_t strlen(const char *s) {
+size_t strlen(const char *s) { const char *p = s; while (*p) ++p; return p - s; }
+char *strcpy(char *dst, const char *src) { char *p = dst; while ((*p++ = *src++)) {} return dst; }
+char *strncpy(char *dst, const char *src, size_t n) {
+  size_t i = 0;
+  for (; i < n && src[i]; ++i) dst[i] = src[i];
+  for (; i < n; ++i) dst[i] = 0;
+  return dst;
+}
+char *strcat(char *dst, const char *src) { strcpy(dst + strlen(dst), src); return dst; }
+int strcmp(const char *a, const char *b) {
+  while (*a && *a == *b) { ++a; ++b; }
+  return (unsigned char)*a - (unsigned char)*b;
+}
+int strncmp(const char *a, const char *b, size_t n) {
+  while (n && *a && *a == *b) { ++a; ++b; --n; }
+  return n ? (unsigned char)*a - (unsigned char)*b : 0;
+}
+void *memset(void *dst, int c, size_t n) {
+  unsigned char *p = dst;
+  for (size_t i = 0; i < n; ++i) p[i] = (unsigned char)c;
+  return dst;
+}
+void *memcpy(void *dst, const void *src, size_t n) {
+  unsigned char *d = dst; const unsigned char *s = src;
+  for (size_t i = 0; i < n; ++i) d[i] = s[i];
+  return dst;
+}
+void *memmove(void *dst, const void *src, size_t n) {
+  unsigned char *d = dst; const unsigned char *s = src;
+  if (d < s || d >= s + n) return memcpy(dst, src, n);
+  while (n) { --n; d[n] = s[n]; }
+  return dst;
+}
+int memcmp(const void *a, const void *b, size_t n) {
+  const unsigned char *x = a, *y = b;
+  for (size_t i = 0; i < n; ++i) if (x[i] != y[i]) return x[i] - y[i];
   return 0;
 }
-
-char *strcpy(char* dst,const char* src) {
+const char *strchr(const char *s, int c) {
+  for (;; ++s) { if (*s == (char)c) return s; if (!*s) return NULL; }
+}
+char *strstr(const char *s, const char *needle) {
+  if (!*needle) return (char *)s;
+  for (; *s; ++s) if (strncmp(s, needle, strlen(needle)) == 0) return (char *)s;
   return NULL;
 }
-
-char* strncpy(char* dst, const char* src, size_t n) {
-  return NULL;
-}
-
-char* strcat(char* dst, const char* src) {
-  return NULL;
-}
-
-int strcmp(const char* s1, const char* s2) {
-  return 0;
-}
-
-int strncmp(const char* s1, const char* s2, size_t n) {
-  return 0;
-}
-
-void* memset(void* v,int c,size_t n) {
-  return NULL;
-}
-
-void* memcpy(void* out, const void* in, size_t n) {
-  return NULL;
-}
-
-int memcmp(const void* s1, const void* s2, size_t n){
-  return 0;
-}
-
 #endif

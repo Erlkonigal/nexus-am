@@ -61,6 +61,10 @@ int abs(int x);
 unsigned long time();
 void srand(unsigned int seed);
 int rand();
+void *malloc(size_t size);
+void free(void *ptr);
+void *calloc(size_t count, size_t size);
+void *realloc(void *ptr, size_t size);
 
 // stdio.h
 int printf(const char* fmt, ...);
