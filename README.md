@@ -18,6 +18,17 @@ make -C apps/jeucore ARCH=riscv64-jeucore CROSS_COMPILE=riscv64-unknown-elf- \
 `JEUCORE_SIM_FAIL_ADDR` 覆盖。修改这些参数时，请使用 `make -B` 重编译，并让
 Jeucore Kconfig 使用相同值。当前 RTL 只验证了默认 pass/fail 地址的运行行为。
 
+在仓库根目录运行 `make bear` 可用 Bear 重编 `apps/jeucore` 及其依赖，并生成
+`compile_commands.json`。默认架构为 `riscv64-jeucore`；可以指定重编目录、架构
+和交叉编译器，例如：
+
+```sh
+make bear CROSS_COMPILE=riscv64-linux-gnu-
+make bear BEAR_DIR=apps/coremark ARCH=riscv64-jeucore CROSS_COMPILE=riscv64-linux-gnu-
+```
+
+`BEAR_DIR` 也可以指向 `am` 或 `libs/klib` 等含 Makefile 的目录。
+
 抽象计算机：必要的抽象，帮你编写一个完整的计算机系统！
 
 目录组织：

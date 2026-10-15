@@ -11,3 +11,4 @@
 tags
 cscope.*
 build/
+/compile_commands.json

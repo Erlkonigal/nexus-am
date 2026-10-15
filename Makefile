@@ -1,9 +1,19 @@
-include Makefile.check
+AM_HOME ?= $(CURDIR)
+BEAR ?= bear
+BEAR_DIR ?= apps/jeucore
 
-AM_HOME ?= $(shell pwd)
+ifneq ($(filter bear,$(MAKECMDGOALS)),)
+ARCH ?= riscv64-jeucore
+endif
+
+include Makefile.check
 
 default:
 	@$(MAKE) -s -C am
+
+bear:
+	$(BEAR) --output "$(CURDIR)/compile_commands.json" -- \
+	  $(MAKE) -B -C "$(BEAR_DIR)" AM_HOME="$(AM_HOME)" ARCH="$(ARCH)"
 
 # clean everything
 ALLMAKE = $(dir $(shell find . -mindepth 2 -name "Makefile"))
@@ -12,4 +22,4 @@ $(ALLMAKE):
 
 clean: $(ALLMAKE)
 
-.PHONY: default clean $(ALLMAKE)
+.PHONY: default bear clean $(ALLMAKE)
