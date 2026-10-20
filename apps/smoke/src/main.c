@@ -1,10 +1,10 @@
 #include <am.h>
-#include <jeucore.h>
+#include <cosim.h>
 #include <klib.h>
 
 int main(const char *args) {
   (void)args;
-  if (jeucore_getc() != 'Z') goto fail;
+  if (cosim_getc() != 'Z') goto fail;
 
   char *buffer = malloc(32);
   if (!buffer) goto fail;

@@ -4,12 +4,12 @@ extern char __heap_start[], __heap_end[];
 extern void _sim_pass(void) __attribute__((noreturn));
 extern void _sim_fail(void) __attribute__((noreturn));
 int main(const char *args);
-void jeucore_uart_init(void);
+void cosim_uart_init(void);
 
 _Area _heap = { __heap_start, __heap_end };
 
 void _trm_init(void) {
-  jeucore_uart_init();
+  cosim_uart_init();
   _halt(main(""));
 }
 

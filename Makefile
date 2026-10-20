@@ -1,10 +1,7 @@
 AM_HOME ?= $(CURDIR)
 BEAR ?= bear
-BEAR_DIR ?= apps/jeucore
-
-ifneq ($(filter bear,$(MAKECMDGOALS)),)
-ARCH ?= riscv64-jeucore
-endif
+BEAR_DIR ?= apps/smoke
+ARCH ?= riscv64-cosim
 
 include Makefile.check
 

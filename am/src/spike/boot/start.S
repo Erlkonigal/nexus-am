@@ -4,28 +4,12 @@
   .option norvc
   .option norelax
 _start:
-  j __jeucore_start
+  j __spike_start
   .size _start, 4
   .option pop
 
-  .section .sim_pass, "ax", @progbits
-  .globl _sim_pass
-  .option push
-  .option norvc
-_sim_pass:
-  j _sim_pass
-  .option pop
-
-  .section .sim_fail, "ax", @progbits
-  .globl _sim_fail
-  .option push
-  .option norvc
-_sim_fail:
-  j _sim_fail
-  .option pop
-
   .section .text.startup, "ax", @progbits
-__jeucore_start:
+__spike_start:
   .option push
   .option norelax
   la gp, __global_pointer$
