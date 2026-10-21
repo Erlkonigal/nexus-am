@@ -14,4 +14,7 @@ through the simulator pass address; other input prints `FAIL` and returns throug
 the fail address. Override `COSIM_UART_INPUT` to change the input. `COSIM_REF`
 defaults to the sibling `riscv-isa-sim/build-cosim/libspike_cosim.so`; set it to
 an empty value to disable lockstep. The runner receives its configuration through
-environment variables and does not create a configuration file.
+environment variables and does not create a configuration file. The smoke target
+delivers the first input byte after 100 UART device cycles so firmware UART
+initialization has completed; override `COSIM_UART_INPUT_DELAY_CYCLES` to change
+the initial delay and the interval between subsequent input bytes.
