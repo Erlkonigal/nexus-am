@@ -11,6 +11,7 @@ make ARCH=riscv64-cosim CROSS_COMPILE=riscv64-unknown-elf- \
 The application exercises klib formatting, strings and allocation along with UART
 input and completion handling. Input `Z` prints `wave 42` and `OK`, then returns
 through the simulator pass address; other input prints `FAIL` and returns through
-the fail address. Override `COSIM_UART_INPUT` to change the input or set
-`COSIM_REF` to enable a reference model. The runner receives its configuration
-through environment variables and does not create a configuration file.
+the fail address. Override `COSIM_UART_INPUT` to change the input. `COSIM_REF`
+defaults to the sibling `riscv-isa-sim/build-cosim/libspike_cosim.so`; set it to
+an empty value to disable lockstep. The runner receives its configuration through
+environment variables and does not create a configuration file.

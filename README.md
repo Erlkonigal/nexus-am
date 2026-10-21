@@ -14,7 +14,8 @@ make -C apps/smoke ARCH=riscv64-cosim CROSS_COMPILE=riscv64-unknown-elf- \
 `run` 直接通过环境变量调用 `cosim-run`。平台地址和 UART 参数可通过
 `COSIM_RAM_BASE`、`COSIM_RAM_SIZE`、`COSIM_UART_BASE`、`COSIM_UART_CLOCK_HZ`、
 `COSIM_UART_BAUD`、`COSIM_SIM_PASS_ADDR` 和 `COSIM_SIM_FAIL_ADDR` 覆盖；输入字符由
-`COSIM_UART_INPUT` 设置。`COSIM_REF` 可选地启用参考模型；
+`COSIM_UART_INPUT` 设置。`COSIM_REF` 默认指向 sibling
+`riscv-isa-sim/build-cosim/libspike_cosim.so`，可在命令行设为空以关闭参考模型；
 `COSIM_MAX_CYCLES` 和 `COSIM_MAX_INSTRUCTIONS` 只有显式设置时才限制运行。
 
 在仓库根目录运行 `make bear` 可用 Bear 重编 `apps/smoke` 及其依赖，并生成
