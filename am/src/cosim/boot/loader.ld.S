@@ -21,6 +21,7 @@ SECTIONS {
   } > ram
   __heap_start = ALIGN(16);
   __stack_top = ORIGIN(ram) + LENGTH(ram);
-  __heap_end = __stack_top - 0x8000;
+  __mainargs = __stack_top - COSIM_MAINARGS_OFFSET;
+  __heap_end = __mainargs;
   ASSERT(__heap_start < __heap_end, "cosim program exceeds RAM")
 }
