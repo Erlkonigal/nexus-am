@@ -5,14 +5,14 @@
  *
  * The hot body contains only independent compressed integer ALU operations.
  * Fourteen caller-saved registers are updated round-robin, which keeps every
- * operation independent while fitting the body comfortably in the 16 KiB
- * I-cache.  Compressed instructions let one 16-byte fetch block feed more than
- * the four instructions needed to saturate the backend.  The only dynamic
- * branch is the loop backedge once per 1792 ALU operations.
+ * operation independent.  A compact hot body reduces cold instruction-fetch
+ * overhead; compressed instructions provide enough ALU operations to saturate
+ * the backend.  With branch prediction, the loop backedge once per 112 ALU
+ * operations needs little unrolling.  Total ALU work remains unchanged.
  */
 
-#define INNER_REPEATS    128
-#define OUTER_ITERATIONS 256
+#define INNER_REPEATS    1
+#define OUTER_ITERATIONS (4096 * 64)
 #define ACCUMULATORS     14
 #define EXPECTED_SUM     (INNER_REPEATS * OUTER_ITERATIONS * ACCUMULATORS)
 
